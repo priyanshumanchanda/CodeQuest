@@ -1,36 +1,50 @@
 # CodeQuest
 
-A modern, full-featured algorithmic practice and technical interview preparation platform built with React, Vite, Tailwind CSS, and Monaco Editor.
+CodeQuest is an algorithm-practice app with a React/Vite frontend and an Express/MongoDB backend. The applications live in separate `frontend/` and `backend/` folders.
 
-## Features
+## Project structure
 
-- **Landing Experience**: High-converting, clean developer-focused UI with key statistics and feature breakdown.
-- **Authentication**: Seamless Sign Up, Sign In, and session persistence with account preferences.
-- **Problem Catalog**: 50+ curated algorithm challenges categorized across Data Structures & Algorithms topics (Arrays, Strings, Hashing, Trees, Dynamic Programming, Graphs).
-- **Advanced Filtering**: Full-text search, topic filtering, difficulty levels (Easy, Medium, Hard), status filtering, and sorting.
-- **Code Workspace**: Monaco code editor with syntax highlighting for Java and C++, reset controls, and real-time execution feedback.
-- **Progress Tracking**: Personal dashboard tracking problem solve rates, streak momentum, topic-wise mastery, and recent activity.
-- **Structured Study Plan**: Guided roadmaps taking developers from algorithmic fundamentals to advanced topics.
-- **Submission History**: Complete log of previous solutions, runtime performance, and code snapshots.
+- `frontend/`: React UI, Vite, Tailwind CSS, and Monaco Editor
+- `backend/`: Express API, Mongoose models, authentication, and progress storage
+- `.env`: local backend configuration, kept at the repository root
 
-## Quick Start
+## Setup
 
-1. Install dependencies:
+1. Install workspace dependencies from the repository root:
+
    ```bash
    npm install
    ```
 
-2. Start the development server:
+2. Copy `.env.example` to `.env` and configure `MONGODB_URI` and `JWT_SECRET`. The secret must be at least 32 characters long.
+
+3. Start MongoDB, then run both applications from the repository root:
+
    ```bash
    npm run dev
    ```
 
-3. Open the application:
-   ```
-   http://localhost:5173/
-   ```
+   The frontend waits for the backend health endpoint before starting. Open `http://localhost:5173/`.
 
-## Seed Accounts (`src/data/users.json`)
+## Run applications separately
 
-- **Email**: `alex.rivera@codequest.io`
-- **Password**: `password123`
+Run either command from the repository root:
+
+```bash
+npm run dev:backend
+npm run dev:frontend
+```
+
+The backend listens on port `4000`. The frontend runs on port `5173` and proxies `/api` requests to the backend.
+
+For production, build the frontend with `npm run build` and start the API with `npm run start:backend`.
+
+## Features
+
+- MongoDB-backed signup, login, profiles, submissions, and solved-problem progress
+- Bcrypt password hashes and HTTP-only session cookies
+- Curated data-structures and algorithms problem catalog with filters
+- Java and C++ code editor
+- Dashboard, study plan, and submission history
+
+No demo users or default passwords are created. Create an account through the signup page.
